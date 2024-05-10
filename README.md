@@ -25,13 +25,13 @@ We use three git repos.
 #### App source repos
 
 Vote App source repos (Frontend + Backend):
-* [Vote App UI](https://github.com/blues-man/pipelines-vote-ui)
-* [Vote App API](https://github.com/blues-man/pipelines-vote-api)
+* [Vote App UI](https://github.com/jmpercival/pipelines-vote-ui)
+* [Vote App API](https://github.com/jmpercival/pipelines-vote-api)
 
 #### GitOps repo
 
 This repo, used to store Kubernetes manifests and Argo application:
-* [Vote App GitOps](https://github.com/blues-man/vote-app-gitops)
+* [Vote App GitOps](https://github.com/jmpercival/vote-app-gitops)
 
 There are 2 environments managed with Kustomize:
 * **dev**: used to deploy and sync manifests in a **Dev** environment
@@ -49,8 +49,8 @@ In this demo we use [Quay.io](https://quay.io) as public container registry with
 
 Example:
 
-* quay.io/bluesman/vote-api:latest
-* quay.io/bluesman/vote-ui:latest
+* quay.io/jpercivaldbxcorp/vote-api:latest
+* quay.io/jpercivaldbxcorp/vote-ui:latest
 
 
 ## Setup
@@ -243,15 +243,15 @@ oc secret link pipeline git-user-pass
 
 In order to enable webhooks, fork source code repos to use them in pipelines:
 
-* [vote-api](https://github.com/blues-man/pipelines-vote-api)
-* [vote-ui](https://github.com/blues-man/pipelines-vote-ui)
+* [vote-api](https://github.com/jmpercival/pipelines-vote-api)
+* [vote-ui](https://github.com/jmpercival/pipelines-vote-ui)
 
 
 4. Clone vote-api repo
 
 
 ```bash
-git clone https://github.com/blues-man/pipelines-vote-api
+git clone https://github.com/jmpercival/pipelines-vote-api
 cd pipelines-vote-api
 ```
 
@@ -259,8 +259,8 @@ cd pipelines-vote-api
 
 Change the GitOps repo to your fork:
 ```bash
-sed -i 's/bluesman/yourquayuser/g' k8s/pipeline.yaml
-sed -i 's/blues-man/yourgithubuser/g' k8s/pipeline.yaml
+sed -i 's/jpercivaldbxcorp/yourquayuser/g' k8s/pipeline.yaml
+sed -i 's/jmpercival/yourgithubuser/g' k8s/pipeline.yaml
 ```
 
 ```bash
@@ -279,7 +279,7 @@ oc create -f k8s/el-route.yaml
 
 ```bash
 cd ..
-git clone https://github.com/blues-man/pipelines-vote-ui
+git clone https://github.com/jmpercival/pipelines-vote-ui
 cd pipelines-vote-ui
 ```
 
@@ -288,8 +288,8 @@ cd pipelines-vote-ui
 
 Change the GitOps repo to your fork:
 ```bash
-sed -i 's/bluesman/yourquayuser/g' k8s/pipeline.yaml
-sed -i 's/blues-man/yourgithubuser/g' k8s/pipeline.yaml
+sed -i 's/jpercivaldbxcorp/yourquayuser/g' k8s/pipeline.yaml
+sed -i 's/jmpercival/yourgithubuser/g' k8s/pipeline.yaml
 ```
 
 ```bash
@@ -356,7 +356,7 @@ Finally, click on **Add Webhook**.
 ![Vote UI Web Hook](images/webhook-vote-ui.png)
 
 
-NOTE: If you forked the repo, update the `TriggerTemplate` with your vote-ui repo on quay.io reference adding the `IMAGE_NAME` parameter, otherwise it will fallback to `quay.io/bluesman/vote-ui`:
+NOTE: If you forked the repo, update the `TriggerTemplate` with your vote-ui repo on quay.io reference adding the `IMAGE_NAME` parameter, otherwise it will fallback to `quay.io/jpercivaldbxcorp/vote-ui`:
 
 ```bash
 oc edit triggertemplate vote-ui
@@ -380,7 +380,7 @@ Do some change to the source code and verify that the pipeline starts.
 
 You can also use CodeReadyWorkspaces for that (change this URL with the one for your OpenShift DevSpaces):
 
-[![Contribute](https://raw.githubusercontent.com/blues-man/cloud-native-workshop/demo/factory-contribute.svg)](https://codeready-openshift-workspaces.apps.cluster-6ef7.6ef7.sandbox74.opentlc.com/factory?url=https://github.com/blues-man/pipelines-vote-ui&policies.create=peruser)
+[![Contribute](https://raw.githubusercontent.com/jmpercival/cloud-native-workshop/demo/factory-contribute.svg)](https://codeready-openshift-workspaces.apps.cluster-6ef7.6ef7.sandbox74.opentlc.com/factory?url=https://github.com/jmpercival/pipelines-vote-ui&policies.create=peruser)
 
 
 ![Vote UI Pipeline start](images/pipeline-vote-ui-start.png)
@@ -400,11 +400,11 @@ NOTE: you can also trigger the Pipeline start by changing and pushing the code a
 
 We will pre-deploy the DEV environment in the **vote-app-dev** project.
 
-1. Fork this [vote-app-gitops](https://github.com/blues-man/vote-app-gitops) repository 
+1. Fork this [vote-app-gitops](https://github.com/jmpercival/vote-app-gitops) repository 
 2. Clone your repository fork in the **main** branch:
 
 ```bash
-git clone https://github.com/blues-man/vote-app-gitops.git
+git clone https://github.com/jmpercival/vote-app-gitops.git
 cd vote-app-gitops
 ```
 
@@ -423,7 +423,7 @@ spec:
   project: default 
   source: 
     path: environments/dev
-    repoURL: https://github.com/blues-man/vote-app-gitops
+    repoURL: https://github.com/jmpercival/vote-app-gitops
     targetRevision: main
   syncPolicy: 
     automated:
@@ -434,7 +434,7 @@ spec:
 ```
 3. Update all references to quay.io with your repos for vote-ui and vote-api images:
 ```bash
-sed -i 's/bluesman/yourquayuser/g' k8s/api-deployment.yaml k8s/ui-deployment.yaml
+sed -i 's/jpercivaldbxcorp/yourquayuser/g' k8s/api-deployment.yaml k8s/ui-deployment.yaml
 git commit
 git push
 ```
@@ -504,7 +504,7 @@ Before doing that, update all the references to quay.io with your images also fo
 
 ```bash
 git checkout main
-sed -i 's/bluesman/yourquayuser/g' k8s/api-deployment.yaml k8s/ui-deployment.yaml
+sed -i 's/jpercivaldbxcorp/yourquayuser/g' k8s/api-deployment.yaml k8s/ui-deployment.yaml
 git commit
 git push
 ```
@@ -523,7 +523,7 @@ Under **General**:
 
 Under **Source** section:
 
-* **Reposiroty URL**: Add your forked repo, e.g. https://github.com/blues-man/vote-app-gitops
+* **Reposiroty URL**: Add your forked repo, e.g. https://github.com/jmpercival/vote-app-gitops
 * **Revision**: main
 * **Path**: environments/prod
 
@@ -553,7 +553,7 @@ spec:
   project: default 
   source: 
     path: environments/prod
-    repoURL: https://github.com/blues-man/vote-app-gitops
+    repoURL: https://github.com/jmpercival/vote-app-gitops
     targetRevision: main
   syncPolicy: 
     automated:
