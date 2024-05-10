@@ -6,3 +6,6 @@ images:
 - digest: sha256:7cc5c17b676dc8b2d580b6ed8ee90cb031a7321680b47852a277b3cdd94d45a7
   name: quay.io/jpercivaldbxcorp/vote-api
   newName: quay.io/jpercivaldbxcorp/vote-api
+- digest: sha256:7789e6e355fb9b021eaf3c4f03c54ee0ecbf36a03c27af18092d3387eb89c162
+  name: quay.io/jpercivaldbxcorp/vote-ui
+  newName: quay.io/jpercivaldbxcorp/vote-ui
